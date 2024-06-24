@@ -1,0 +1,22 @@
+using Microsoft.AspNetCore.Mvc;
+
+namespace LibraryManagmentSystem.Models;
+
+public class Member {
+    //A member is a person who can borrow booksfrom the library
+    //Maybe add more information about he books they take/like
+    public Guid Id { get; set; }
+    public string firstName { get; set; }
+    public string? lastName { get; set; }
+    public string? email { get; set; }
+    public string phoneNumber { get; set; }
+    public DateTime DateOfBirth { get; set; }
+
+    public Member(string firstName, string? lastName, string? email, string phoneNumber, DateTime DateOfBirth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.DateOfBirth = DateOfBirth;
+    }
+}
