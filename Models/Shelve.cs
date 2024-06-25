@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibraryManagmentSystem.Models;
+namespace LibraryManagementSystem.Models;
 
 public class Shelve {
     //A shelve is used to orden books under the same cateegory (Author or Genre?)

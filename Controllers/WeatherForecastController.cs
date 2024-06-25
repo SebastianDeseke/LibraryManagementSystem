@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibraryManagmentSystem.Controllers;
+namespace LibraryManagementSystem.Controllers;
 
 [ApiController]
 [Route("[controller]")]

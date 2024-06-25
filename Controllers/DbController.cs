@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Collections;
+//using Microsoft.EntityFrameworkCore;
 
-namespace LibraryManagmentSystem.Controllers;
+namespace LibraryManagementSystem.Controllers;
 
 [Authorize]
 public class DbController : Controller{

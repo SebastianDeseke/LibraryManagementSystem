@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibraryManagmentSystem.Controllers;
+namespace LibraryManagementSystem.Controllers;
 
 [Authorize]
 [ApiController]

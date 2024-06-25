@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibraryManagmentSystem.Models;
+namespace LibraryManagementSystem.Models;
 
 public class ErrorViewModel
 {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibraryManagmentSystem.Models;
+namespace LibraryManagementSystem.Models;
 
 public class BookLoan {
     //A book loan is a record of a book being borrowed by a member

@@ -1,4 +1,4 @@
-# Library Managment System
+# Library Management System
 Welcome to my fun little project in *C#*
 
 ## Description
@@ -17,7 +17,7 @@ Console.WriteLine ("Hello lovely world!");
 
 ## Licences
 
-[GitHub](https://github.com/SebastianDeseke/LibraryManagmentSystem)
+[GitHub](https://github.com/SebastianDeseke/LibraryManagementSystem)
 Distributed under the __YoMamma__ License.
 
 ### What ChatGpt said :) 
