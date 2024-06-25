@@ -5,6 +5,10 @@ Welcome to my fun little project in *C#*
 
 This project is a System with which to manage the ongoing task normally found in a __Library__. It can be scalled down for a single person use (yes some of us still read books). It is intended to be modular and have *API compatibility*. I am trying to make it accessable for frontend via API, but this field is a little unfamiliar to me. 
 
+Every book is ordened in a shelve that has a disctinct **SharingAttribute** (You can choose, but genre makes sense). Every Shelve has a Sectin that it belongs to a Section, that have a overarching **SharedTheme**. The shelves have an ID as identifier, while the section have a char value a-z as identifier. When combined it makes for a definitif identifier of a books location. 
+
+*Note: I understand that limiting it to char a-z does limit us to only 26 uid's, but for most use cases this is enough. If you need more, you can modify the SectionID to suit your situation.*
+
 ## Installation
 
 /

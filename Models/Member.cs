@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 
 namespace LibraryManagementSystem.Models;
 
@@ -7,16 +8,21 @@ public class Member {
     //Maybe add more information about he books they take/like
     public Guid Id { get; set; }
     public string firstName { get; set; }
-    public string? lastName { get; set; }
-    public string? email { get; set; }
+    public string lastName { get; set; }
+    public string email { get; set; }
     public string phoneNumber { get; set; }
     public DateTime DateOfBirth { get; set; }
 
-    public Member(string firstName, string? lastName, string? email, string phoneNumber, DateTime DateOfBirth) {
+    public Member (string firstName, string lastName, string email, string phoneNumber, DateTime DateOfBirth) {
+        this.Id = MakeID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.DateOfBirth = DateOfBirth;
+    }
+
+    public Guid MakeID (){
+        return Guid.NewGuid();
     }
 }

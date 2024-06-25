@@ -21,4 +21,14 @@ public class BookLoan {
         this.Returned = Returned;
         this.Overdue = Overdue;
     }
+
+    public void ReturnedBook() {
+        this.Returned = true;
+    }
+
+    public void CheckOverdue() {
+        if (DateTime.Now > this.ReturnDate) {
+            this.Overdue = true;
+        }
+    }
 }
