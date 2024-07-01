@@ -8,7 +8,7 @@ public class Section {
     public string SectionName { get; set; }
     public string SharedTheme { get; set; }
     public string SectionDescription { get; set; }
-    public ICollection<Shelve> Shelves { get; set; }
+    public ICollection<Shelf> Shelves { get; set; }
 
     public Section (string SectionName, string SectionDescription, string SharedTheme) {
         this.SecId = MakeSecID();
@@ -17,11 +17,11 @@ public class Section {
         this.SharedTheme = SharedTheme;
     }
 
-    public void AddShelve(Shelve shelve) {
+    public void AddShelve(Shelf shelve) {
         Shelves.Add(shelve);
     }
 
-    public void RemoveShelve(Shelve shelve) {
+    public void RemoveShelve(Shelf shelve) {
         Shelves.Remove(shelve);
     }
 

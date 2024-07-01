@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementSystem.Models;
 
-public class Shelve {
+public class Shelf {
     //A shelve is used to orden books under the same cateegory (Author or Genre?)
     public int ShelveId { get; set; }
     public string ShelveName { get; set; }
@@ -10,7 +10,7 @@ public class Shelve {
     public string SharingAttribute { get; set; }
     public Section Section { get; set; }
 
-    public Shelve (string ShelveName, string SharingAttribute, Section Section) {
+    public Shelf (string ShelveName, string SharingAttribute, Section Section) {
         this.ShelveName = ShelveName;
         this.SharingAttribute = SharingAttribute;
         this.Section = Section;
@@ -24,7 +24,7 @@ public class Shelve {
         Books.Remove(book);
     }
 
-    public void makeShelveID(){
+    public void makeShelfID(){
         //Method to make a shelve ID
     }
 }
