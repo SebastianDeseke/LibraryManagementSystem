@@ -2,6 +2,7 @@ using K4os.Compression.LZ4.Internal;
 using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using LibraryManagementSystem.Services;
 
 namespace LibraryManagementSystem.Controllers;
 
@@ -10,12 +11,12 @@ namespace LibraryManagementSystem.Controllers;
 [Route("api/[controller]")]
 public class MemberController : ControllerBase
 {
-    private readonly DbController _db;
+    private readonly DbConnection _db;
     private readonly IConfiguration _config;
     private readonly ILogger<MemberController> _logger;
     private Member member;
 
-    public MemberController (IConfiguration config, ILogger<MemberController> logger, DbController db)
+    public MemberController (IConfiguration config, ILogger<MemberController> logger, DbConnection db)
     {
         _config = config;
         _logger = logger;

@@ -5,15 +5,15 @@ using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Data;
 
-namespace LibraryManagementSystem.Controllers;
+namespace LibraryManagementSystem.Services;
 
-[Authorize]
-public class DbController : Controller{
+public class DbConnection
+{
     MySqlConnection connection { get; set; }
     private readonly IConfiguration _config;
-    private readonly ILogger<DbController> _logger;
+    private readonly ILogger<DbConnection> _logger;
 
-    public DbController (IConfiguration config, ILogger<DbController> logger){
+    public DbConnection (IConfiguration config, ILogger<DbConnection> logger){
         _config = config;
         _logger = logger;
     }
@@ -89,6 +89,25 @@ public class DbController : Controller{
         return resultSet;
     }
 
+    public T GetById<T> (string table, int id) {
+        Connect();
+        var objectProperties = typeof(T).GetProperties();
+        var cmd = connection.CreateCommand();
+        cmd.CommandText = $"SELECT * FROM {table} WHERE id = @id";
+        cmd.Parameters.AddWithValue("@id", id);
+        var reader = cmd.ExecuteReader();
+        T obj = default;
+        if (reader.Read()) {
+            obj = Activator.CreateInstance<T>();
+            foreach (var prop in objectProperties) {
+                prop.SetValue(obj, reader[prop.Name]);
+            }
+        }
+        Disconnect();
+        return obj;
+    }
+
+
 //Get single methods
     public Member GetMember (int id) {
         Connect();
@@ -102,7 +121,7 @@ public class DbController : Controller{
             Console.WriteLine(reader.GetString(0));
         }
         Disconnect();
-        return member;
+        return new Member(null, null, null, null, DateTime.Now);
     }
 
     public BookLoan GetLoan (int id) {
@@ -117,17 +136,17 @@ public class DbController : Controller{
             Console.WriteLine(reader.GetString(0));
         }
         Disconnect();
-        return loan;
+        return new BookLoan(null, null, DateTime.Now, DateTime.Now, true, true);
     }
 
     public Book GetBook (int id) {
         Connect();
-        Book book;
+        Book book = null;
         var cmd = connection.CreateCommand();
         cmd.CommandText = "SELECT * FROM books WHERE id = @id";
         cmd.Parameters.AddWithValue("@id", id);
         var reader = cmd.ExecuteReader();
-        while (reader.Read()) {
+        if (reader.Read()) {
             book = reader.GetFieldValue<Book>(0);
             Console.WriteLine(reader.GetString(0));
         }

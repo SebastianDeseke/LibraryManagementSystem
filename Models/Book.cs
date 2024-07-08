@@ -10,7 +10,8 @@ public class Book
     public enum Language {
         en, de, fr, nl, afr, zul, xho
     }
-    public Guid Uid { get; set; }
+    [Key]
+    public int Id { get; set; }
     public string Title { get; set; }
     public string Author { get; set; }
     public string ISBN { get; set; }
@@ -18,17 +19,13 @@ public class Book
 
     public Book(string Title, string Author, string ISBN, string Genre)
     {
-        Uid = MakeUid();
         this.Title = Title;
         this.Author = Author;
         this.ISBN = CheckISBN(ISBN) ? ISBN : throw new ArgumentException("[!] Invalid ISBN");
         this.Genre = Genre;
     }
 
-    public Guid MakeUid()
-    {
-        return Guid.NewGuid();
-    }
+    public Book() {}
 
     public bool CheckISBN(string ISBN)
     {

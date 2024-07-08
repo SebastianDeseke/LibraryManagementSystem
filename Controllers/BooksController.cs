@@ -4,16 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
+using LibraryManagementSystem.Services;
 
 namespace LibraryManagementSystem.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class BooksController : ControllerBase {
-        private readonly DbController _db;
+        private readonly DbConnection _db;
 
-        public BooksController(DbController db) {
+        public BooksController(DbConnection db) {
             _db = db;
         }
 
@@ -22,9 +23,9 @@ public class BooksController : ControllerBase {
             return _db.GetAll<Book>( "books");
         }
 
-        [HttpGet("{uid}")]
-        public ActionResult<Book> GetBook(int uid) {
-            var book = _db.GetBook(uid);
+        [HttpGet("{id}")]
+        public ActionResult<Book> GetBook(int id) {
+            var book = _db.GetById<Book> ("books",id);
             if (book == null) {
                 return NotFound();
             }
@@ -32,8 +33,8 @@ public class BooksController : ControllerBase {
         }
 
         [HttpPut("{uid}")]
-        public ActionResult<Book> UpdateBook ([FromBody] string updateColumn, string updateValue) {
-            _db.UpdateModel ("books", updateColumn, updateValue);
+        public ActionResult<Book> UpdateBook ([FromBody] string updateColumn, string updateValue, int uid) {
+            _db.UpdateModel ("books", updateColumn, updateValue, uid);
             return Ok();
         }
         

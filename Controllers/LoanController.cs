@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using LibraryManagementSystem.Services;
 
 namespace LibraryManagementSystem.Controllers;
 
@@ -10,9 +11,9 @@ namespace LibraryManagementSystem.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class LoanController : ControllerBase {
-    private readonly DbController _db;
+    private readonly DbConnection _db;
 
-    public LoanController(DbController db) {
+    public LoanController(DbConnection db) {
         _db = db;
     }
 
