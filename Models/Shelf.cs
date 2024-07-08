@@ -1,10 +1,12 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementSystem.Models;
 
 public class Shelf {
     //A shelve is used to orden books under the same cateegory (Author or Genre?)
-    public int ShelfId { get; set; }
+    [Key]
+    public int Id { get; set; }
     public string ShelfName { get; set; }
     public ICollection<Book> Books { get; set; }
     public string SharingAttribute { get; set; }

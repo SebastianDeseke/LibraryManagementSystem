@@ -33,8 +33,11 @@ public class BooksController : ControllerBase {
         }
 
         [HttpPut("{uid}")]
-        public ActionResult<Book> UpdateBook ([FromBody] string updateColumn, string updateValue, int uid) {
-            _db.UpdateModel ("books", updateColumn, updateValue, uid);
+        public ActionResult<Book> UpdateBook ([FromBody] string updateColumn, string updateValue, int id) {
+            if (!_db.CheckIfExist(id, updateColumn)) {
+                return NotFound();
+            }
+            _db.UpdateModel ("books", updateColumn, updateValue, id);
             return Ok();
         }
         

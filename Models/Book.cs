@@ -7,7 +7,8 @@ namespace LibraryManagementSystem.Models;
 
 public class Book
 {
-    public enum Language {
+    public enum Language
+    {
         en, de, fr, nl, afr, zul, xho
     }
     [Key]
@@ -25,7 +26,7 @@ public class Book
         this.Genre = Genre;
     }
 
-    public Book() {}
+    public Book() { }
 
     public bool CheckISBN(string ISBN)
     {
@@ -83,7 +84,8 @@ public class Book
         }
     }
 
-    public string GetLanguageString(Language lang){
+    public string GetLanguageString(Language lang)
+    {
         switch (lang)
         {
             case Language.en:

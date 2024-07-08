@@ -1,17 +1,19 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementSystem.Models;
 
 public class Section {
     //A section is used to orden shelves under the same cateegory (Author or Genre?)
-    public char SecId { get; set; }
+    [Key]
+    public char Id { get; set; }
     public string SectionName { get; set; }
     public string SharedTheme { get; set; }
     public string SectionDescription { get; set; }
     public ICollection<Shelf> Shelves { get; set; }
 
     public Section (string SectionName, string SectionDescription, string SharedTheme) {
-        this.SecId = MakeSecID();
+        this.Id = MakeSecID();
         this.SectionName = SectionName;
         this.SectionDescription = SectionDescription;
         this.SharedTheme = SharedTheme;
