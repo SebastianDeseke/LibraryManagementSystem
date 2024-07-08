@@ -2,7 +2,6 @@ using K4os.Compression.LZ4.Internal;
 using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using LibraryManagementSystem.Data;
 
 namespace LibraryManagementSystem.Controllers;
 

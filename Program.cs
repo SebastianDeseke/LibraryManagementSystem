@@ -1,11 +1,13 @@
 using Microsoft.Extensions.Configuration;
-using LibraryManagementSystem.Data;
+using Microsoft.Extensions.DependencyInjection;
+using LibraryManagementSystem.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 //builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

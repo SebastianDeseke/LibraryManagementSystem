@@ -135,13 +135,14 @@ public class DbController : Controller{
         return book;
     }
 
-    public void UpdateModel (string UpdateTable, string UpdateColumn, string UpdateValue) {
+    public void UpdateModel (string UpdateTable, string UpdateColumn, string UpdateValue, int id) {
         Connect();
         var cmd = connection.CreateCommand();
-        cmd.CommandText = "UPDATE @UpdateTable SET @UpdateColumn = @UpdateValue";
+        cmd.CommandText = "UPDATE @UpdateTable SET @UpdateColumn = @UpdateValue WHERE id = @id";
         cmd.Parameters.AddWithValue("@UpdateTable", UpdateTable);
         cmd.Parameters.AddWithValue("@UpdateColumn", UpdateColumn);
         cmd.Parameters.AddWithValue("@UpdateValue", UpdateValue);
+        cmd.Parameters.AddWithValue("@id", id);
         cmd.ExecuteNonQuery();
         Disconnect();
     }

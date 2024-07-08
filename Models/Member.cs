@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 
@@ -24,5 +25,14 @@ public class Member {
 
     public Guid MakeID (){
         return Guid.NewGuid();
+    }
+
+    public void CheckEmail (string email) {
+        EmailAddressAttribute emailCheck = new();
+        if (emailCheck.IsValid(email)) {
+            Console.WriteLine("Email is valid");
+        } else {
+            Console.WriteLine("Email is not valid");
+        }
     }
 }
