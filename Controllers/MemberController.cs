@@ -31,7 +31,7 @@ public class MemberController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Member>> GetMember(int id)
     {
-        member = _db.GetMember(id);
+        member =  _db.GetMember(id);
         if (member == null)
         {
             return NotFound();

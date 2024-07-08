@@ -28,6 +28,7 @@ public class DbController : Controller{
         connection.Close();
     }
 
+//Get all Methods
     public List<Member> GetAllMembers () {
         Connect();
         List<Member> members = new();
@@ -70,6 +71,26 @@ public class DbController : Controller{
         return books;
     }
 
+//Trying to make a generic method using reflection
+    public List<T> GetAll<T> (string table) {
+        Connect();
+        List<T> resultSet = new();
+        var objectProperties = typeof(T).GetProperties();
+        var cmd = connection.CreateCommand();
+        cmd.CommandText = $"SELECT * FROM {table}";
+        var reader = cmd.ExecuteReader();
+        while (reader.Read()) {
+            var obj = Activator.CreateInstance<T>();
+            foreach (var prop in objectProperties) {
+                prop.SetValue(obj, reader[prop.Name]);
+            }
+            resultSet.Add(obj);
+        }
+        Disconnect();
+        return resultSet;
+    }
+
+//Get single methods
     public Member GetMember (int id) {
         Connect();
         Member member;
@@ -113,6 +134,17 @@ public class DbController : Controller{
         }
         Disconnect();
         return book;
+    }
+
+    public void UpdateModel (string UpdateTable, string UpdateColumn, string UpdateValue) {
+        Connect();
+        var cmd = connection.CreateCommand();
+        cmd.CommandText = "UPDATE @UpdateTable SET @UpdateColumn = @UpdateValue";
+        cmd.Parameters.AddWithValue("@UpdateTable", UpdateTable);
+        cmd.Parameters.AddWithValue("@UpdateColumn", UpdateColumn);
+        cmd.Parameters.AddWithValue("@UpdateValue", UpdateValue);
+        cmd.ExecuteNonQuery();
+        Disconnect();
     }
 }
 

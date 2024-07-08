@@ -11,4 +11,14 @@ namespace LibraryManagementSystem.Controllers;
 [Route("api/[controller]")]
 public class BooksController : ControllerBase {
 
+        private readonly DbController _db;
+
+        public BooksController(DbController db) {
+            _db = db;
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Book>> GetBooks() {
+            return _db.GetAll<Book>( "books");
+        }
 }
