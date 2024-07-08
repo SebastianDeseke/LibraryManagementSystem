@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Data;
-//using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem.Controllers;
 

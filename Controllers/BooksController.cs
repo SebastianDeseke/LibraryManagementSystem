@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Data;
 
 namespace LibraryManagementSystem.Controllers;
 
@@ -10,6 +11,7 @@ namespace LibraryManagementSystem.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class BooksController : ControllerBase {
+    private readonly LibraryContext _context;
 
         private readonly DbController _db;
 
