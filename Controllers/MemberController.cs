@@ -40,6 +40,12 @@ public class MemberController : ControllerBase
         return member;
     }
 
+    [HttpPost]
+    public ActionResult<Member> AddMember ([FromBody] Member member){
+        _db.Create<Member>("members", member);
+        return CreatedAtAction(nameof(GetMember), new { id = member.Id }, member);
+    }
+
     [HttpPut("{id}")]
     public ActionResult<Member> UpdateMember([FromBody] Member member, int id)
     {

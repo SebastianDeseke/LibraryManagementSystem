@@ -37,6 +37,13 @@ public class LoanController : ControllerBase
         return loan;
     }
 
+    [HttpPost]
+    public ActionResult<BookLoan> AddLoan([FromBody] BookLoan loan)
+    {
+        _db.Create<BookLoan>("loans", loan);
+        return CreatedAtAction(nameof(GetLoan), new { id = loan.Id }, loan);
+    }
+
     [HttpPut("{id}")]
     public ActionResult<BookLoan> UpdateLoan(int id, [FromBody] BookLoan loan)
     {

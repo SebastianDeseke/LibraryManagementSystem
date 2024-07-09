@@ -41,9 +41,9 @@ public class BooksController : ControllerBase {
             return Ok();
         }
         
-        // [HttpPost]
-        // public ActionResult<Book> AddBook (Book book) {
-        //     _db.AddBook(book);
-        //     return CreatedAtAction(nameof(GetBook), new { uid = book.Uid }, book);
-        // }
+        [HttpPost]
+        public ActionResult<Book> AddBook ([FromBody] Book book) {
+            _db.Create<Book>("books", book);
+            return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
+        }
 }

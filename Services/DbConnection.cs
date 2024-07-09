@@ -122,6 +122,40 @@ public class DbConnection
         return obj;
     }
 
+        public void Update<T> (string table, T obj, int id)
+    {
+        Connect();
+        var cmd = connection.CreateCommand();
+             var objectProperties = typeof(T).GetProperties();
+        cmd.Parameters.AddWithValue("@id", id);
+        
+        string columnValues = string.Join(",", objectProperties.Select(p => $"{p.Name} = @val{p.Name}"));
+            foreach (var prop in objectProperties)
+            {
+                cmd.Parameters.AddWithValue($"@val{prop.Name}", prop.GetValue(obj));
+            }
+        cmd.CommandText = $"UPDATE {table} SET {columnValues} WHERE id = @id";
+        Console.WriteLine(cmd.CommandText);
+        cmd.ExecuteNonQuery();
+        Disconnect();
+    }
+
+    public void Create<T> (string table, T obj)
+    {
+        Connect();
+        var cmd = connection.CreateCommand();
+        var objectProperties = typeof(T).GetProperties();
+        string columns = string.Join(",", objectProperties.Select(p => p.Name));
+        string values = string.Join(",", objectProperties.Select(p => $"@val{p.Name}"));
+        foreach (var prop in objectProperties)
+        {
+            cmd.Parameters.AddWithValue($"@val{prop.Name}", prop.GetValue(obj));
+        }
+        cmd.CommandText = $"INSERT INTO {table} ({columns}) VALUES ({values})";
+        Console.WriteLine(cmd.CommandText);
+        cmd.ExecuteNonQuery();
+        Disconnect();
+    }
 
     //Get single methods
     public Member GetMember(int id)
@@ -173,24 +207,6 @@ public class DbConnection
         }
         Disconnect();
         return book;
-    }
-
-    public void Update<T> (string table, T obj, int id)
-    {
-        Connect();
-        var cmd = connection.CreateCommand();
-             var objectProperties = typeof(T).GetProperties();
-        cmd.Parameters.AddWithValue("@id", id);
-        
-        string columnValues = string.Join(",", objectProperties.Select(p => $"{p.Name} = @val{p.Name}"));
-            foreach (var prop in objectProperties)
-            {
-                cmd.Parameters.AddWithValue($"@val{prop.Name}", prop.GetValue(obj));
-            }
-        cmd.CommandText = $"UPDATE {table} SET {columnValues} WHERE id = @id";
-        Console.WriteLine(cmd.CommandText);
-        cmd.ExecuteNonQuery();
-        Disconnect();
     }
 
     public bool CheckIfExist(int id, string table)
