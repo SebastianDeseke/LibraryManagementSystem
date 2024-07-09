@@ -16,7 +16,7 @@ public class MemberController : ControllerBase
     private readonly ILogger<MemberController> _logger;
     private Member member;
 
-    public MemberController (IConfiguration config, ILogger<MemberController> logger, DbConnection db)
+    public MemberController(IConfiguration config, ILogger<MemberController> logger, DbConnection db)
     {
         _config = config;
         _logger = logger;
@@ -32,7 +32,7 @@ public class MemberController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<Member> GetMember(int id)
     {
-        member =  _db.GetMember(id);
+        member = _db.GetMember(id);
         if (member == null)
         {
             return NotFound();
@@ -41,7 +41,8 @@ public class MemberController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Member> AddMember ([FromBody] Member member){
+    public ActionResult<Member> AddMember([FromBody] Member member)
+    {
         _db.Create<Member>("members", member);
         return CreatedAtAction(nameof(GetMember), new { id = member.Id }, member);
     }

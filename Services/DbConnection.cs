@@ -122,25 +122,25 @@ public class DbConnection
         return obj;
     }
 
-        public void Update<T> (string table, T obj, int id)
+    public void Update<T>(string table, T obj, int id)
     {
         Connect();
         var cmd = connection.CreateCommand();
-             var objectProperties = typeof(T).GetProperties();
+        var objectProperties = typeof(T).GetProperties();
         cmd.Parameters.AddWithValue("@id", id);
-        
+
         string columnValues = string.Join(",", objectProperties.Select(p => $"{p.Name} = @val{p.Name}"));
-            foreach (var prop in objectProperties)
-            {
-                cmd.Parameters.AddWithValue($"@val{prop.Name}", prop.GetValue(obj));
-            }
+        foreach (var prop in objectProperties)
+        {
+            cmd.Parameters.AddWithValue($"@val{prop.Name}", prop.GetValue(obj));
+        }
         cmd.CommandText = $"UPDATE {table} SET {columnValues} WHERE id = @id";
         Console.WriteLine(cmd.CommandText);
         cmd.ExecuteNonQuery();
         Disconnect();
     }
 
-    public void Create<T> (string table, T obj)
+    public void Create<T>(string table, T obj)
     {
         Connect();
         var cmd = connection.CreateCommand();
