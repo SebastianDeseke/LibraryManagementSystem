@@ -175,15 +175,20 @@ public class DbConnection
         return book;
     }
 
-    public void UpdateModel(string UpdateTable, string UpdateColumn, string UpdateValue, int id)
+    public void Update<T> (string table, T obj, int id)
     {
         Connect();
         var cmd = connection.CreateCommand();
-        cmd.CommandText = "UPDATE @UpdateTable SET @UpdateColumn = @UpdateValue WHERE id = @id";
-        cmd.Parameters.AddWithValue("@UpdateTable", UpdateTable);
-        cmd.Parameters.AddWithValue("@UpdateColumn", UpdateColumn);
-        cmd.Parameters.AddWithValue("@UpdateValue", UpdateValue);
+             var objectProperties = typeof(T).GetProperties();
         cmd.Parameters.AddWithValue("@id", id);
+        
+        string columnValues = string.Join(",", objectProperties.Select(p => $"{p.Name} = @val{p.Name}"));
+            foreach (var prop in objectProperties)
+            {
+                cmd.Parameters.AddWithValue($"@val{prop.Name}", prop.GetValue(obj));
+            }
+        cmd.CommandText = $"UPDATE {table} SET {columnValues} WHERE id = @id";
+        Console.WriteLine(cmd.CommandText);
         cmd.ExecuteNonQuery();
         Disconnect();
     }

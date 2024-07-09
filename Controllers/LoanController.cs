@@ -38,11 +38,11 @@ public class LoanController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public ActionResult<BookLoan> UpdateLoan(int id, string UpdateColumn, string UpdateValue)
+    public ActionResult<BookLoan> UpdateLoan(int id, [FromBody] BookLoan loan)
     {
-        if (_db.CheckIfExist(id, UpdateColumn))
+        if (_db.CheckIfExist(id, "loans"))
         {
-            _db.UpdateModel("loans", UpdateColumn, UpdateValue, id);
+            _db.Update<BookLoan>("loans", loan, id);
             return Ok();
         }
         else

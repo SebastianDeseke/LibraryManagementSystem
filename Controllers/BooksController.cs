@@ -32,12 +32,12 @@ public class BooksController : ControllerBase {
             return book;
         }
 
-        [HttpPut("{uid}")]
-        public ActionResult<Book> UpdateBook ([FromBody] string updateColumn, string updateValue, int id) {
-            if (!_db.CheckIfExist(id, updateColumn)) {
+        [HttpPut("{id}")]
+        public ActionResult<Book> UpdateBook ([FromBody] Book book, int id) {
+            if (!_db.CheckIfExist(id, "books")) {
                 return NotFound();
             }
-            _db.UpdateModel ("books", updateColumn, updateValue, id);
+            _db.Update<Book> ("books", book, id);
             return Ok();
         }
         

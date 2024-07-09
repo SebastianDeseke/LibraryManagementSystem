@@ -24,13 +24,13 @@ public class MemberController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Member>>> GetMembers()
+    public ActionResult<IEnumerable<Member>> GetMembers()
     {
         return _db.GetAllMembers();
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Member>> GetMember(int id)
+    public ActionResult<Member> GetMember(int id)
     {
         member =  _db.GetMember(id);
         if (member == null)
@@ -38,5 +38,19 @@ public class MemberController : ControllerBase
             return NotFound();
         }
         return member;
+    }
+
+    [HttpPut("{id}")]
+    public ActionResult<Member> UpdateMember([FromBody] Member member, int id)
+    {
+        if (_db.CheckIfExist(id, "members"))
+        {
+            _db.Update("member", member, id);
+            return Ok();
+        }
+        else
+        {
+            return NotFound();
+        }
     }
 }
