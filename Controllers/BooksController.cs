@@ -53,4 +53,11 @@ public class BooksController : ControllerBase
         _db.Create<Book>("books", book);
         return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
     }
+
+    [HttpPut ("{sid}/add-to-shelf")]
+    public ActionResult<Book> AddToShelf ([FromBody] Book book, int sid)
+    {
+        _db.AddBookInShelf(book.Id, sid);
+        return Ok();
+    }
 }

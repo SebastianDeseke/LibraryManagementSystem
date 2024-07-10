@@ -79,7 +79,7 @@ public class DbConnection
         return books;
     }
 
-    //Trying to make a generic method using reflection
+    //generic methods using reflection
     public List<T> GetAll<T>(string table)
     {
         Connect();
@@ -157,58 +157,23 @@ public class DbConnection
         Disconnect();
     }
 
-    //Get single methods
-    public Member GetMember(int id)
+    // single methods
+
+    public void AddBookInShelf(int bookid, int shelfid)
     {
         Connect();
-        Member member;
-        var cmd = connection.CreateCommand();
-        cmd.CommandText = "SELECT * FROM members WHERE id = @id";
-        cmd.Parameters.AddWithValue("@id", id);
-        var reader = cmd.ExecuteReader();
-        while (reader.Read())
+        string sqlQuery = $@"UPDATE books SET shelf_id = {shelfid}
+                            WHERE Id = {bookid}";
+
+        using (MySqlCommand command = new(sqlQuery, connection))
         {
-            member = reader.GetFieldValue<Member>(0);
-            Console.WriteLine(reader.GetString(0));
+            command.ExecuteNonQuery();
         }
+
         Disconnect();
-        return new Member(null, null, null, null, DateTime.Now);
     }
 
-    public BookLoan GetLoan(int id)
-    {
-        Connect();
-        BookLoan loan;
-        var cmd = connection.CreateCommand();
-        cmd.CommandText = "SELECT * FROM loans WHERE id = @id";
-        cmd.Parameters.AddWithValue("@id", id);
-        var reader = cmd.ExecuteReader();
-        while (reader.Read())
-        {
-            loan = reader.GetFieldValue<BookLoan>(0);
-            Console.WriteLine(reader.GetString(0));
-        }
-        Disconnect();
-        return new BookLoan(null, null, DateTime.Now, DateTime.Now, true, true);
-    }
-
-    public Book GetBook(int id)
-    {
-        Connect();
-        Book book = null;
-        var cmd = connection.CreateCommand();
-        cmd.CommandText = "SELECT * FROM books WHERE id = @id";
-        cmd.Parameters.AddWithValue("@id", id);
-        var reader = cmd.ExecuteReader();
-        if (reader.Read())
-        {
-            book = reader.GetFieldValue<Book>(0);
-            Console.WriteLine(reader.GetString(0));
-        }
-        Disconnect();
-        return book;
-    }
-
+    // check methods
     public bool CheckIfExist(int id, string table)
     {
         Connect();
